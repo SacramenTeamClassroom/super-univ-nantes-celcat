@@ -16,7 +16,7 @@ import com.google.gson.GsonBuilder;
 public class App {
 
     static Long currentTimestamp = System.currentTimeMillis();
-    public static void main(String[] pArgs) throws IOException {
+    public static void main(String[] Args) throws IOException {
         parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1315.ics");
         parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1316.ics");
         parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1318.ics");
