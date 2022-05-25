@@ -1,7 +1,6 @@
 package back.celcatjson;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -25,22 +24,27 @@ public class CelcatJson {
 
     public static String jsonCreneau = "";
 
-    public static void GetAll() throws IOException {
-        currentTimestamp = System.currentTimeMillis();
-        parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1315.ics");
-        parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1316.ics");
-        parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1318.ics");
-        parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1299.ics");
-        parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r89806.ics");
-        parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1300.ics");
-        parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r89807.ics");
-        parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r89808.ics");
-        parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1331.ics");
-        parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1330.ics");
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        
-        jsonCreneau = gson.toJson(allCreaneau);
+    public static void GetAll() {
+        try {
+            currentTimestamp = System.currentTimeMillis();
+            parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1315.ics");
+            parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1316.ics");
+            parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1318.ics");
+            parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1299.ics");
+            parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r89806.ics");
+            parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1300.ics");
+            parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r89807.ics");
+            parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r89808.ics");
+            parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1331.ics");
+            parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1330.ics");
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.create();
+            
+            jsonCreneau = gson.toJson(allCreaneau);
+        } catch (Exception e) {
+
+        }
+
 
     }
 

@@ -5,6 +5,8 @@ import static spark.Spark.port;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import back.celcatjson.CelcatJson;
+
 public class App {
 
     public static GsonBuilder builder;
@@ -13,6 +15,7 @@ public class App {
     public static void main(String[] args) {
         builder = new GsonBuilder();
         gson = builder.create();
+        CelcatJson.GetAll();
         start();
 
     }
