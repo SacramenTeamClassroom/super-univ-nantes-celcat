@@ -4,10 +4,6 @@ import static spark.Spark.post;
 
 import java.util.ArrayList;
 import java.util.UUID;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import back.App;
 import back.celcatjson.CelcatJson;
 import back.model.Reservation;
