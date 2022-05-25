@@ -1,4 +1,4 @@
-package ics.celcat.parser;
+package back.celcatjson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.util.stream.Stream;
@@ -13,10 +14,20 @@ import java.util.stream.Stream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class App {
+import back.model.Creneau;
+import back.model.Reservation;
 
-    static Long currentTimestamp = System.currentTimeMillis();
-    public static void main(String[] pArgs) throws IOException {
+public class CelcatJson {
+
+    public static Long currentTimestamp = System.currentTimeMillis();
+    public static Boolean inBlock = false;
+    public static ArrayList<Creneau> allCreaneau = new ArrayList<>();
+    public static Creneau currentCreneau = new Creneau();
+
+    public static String jsonCreneau = "";
+
+    public static void GetAll() throws IOException {
+        currentTimestamp = System.currentTimeMillis();
         parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1315.ics");
         parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1316.ics");
         parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1318.ics");
@@ -29,13 +40,11 @@ public class App {
         parseIcs("https://edt.univ-nantes.fr/iut_nantes_pers/r1330.ics");
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        System.out.println(gson.toJson(allCreaneau));
+        
+        jsonCreneau = gson.toJson(allCreaneau);
 
     }
 
-    static Boolean inBlock = false;
-    static ArrayList<Creneau> allCreaneau = new ArrayList<>();
-    static Creneau currentCreneau = new Creneau();
 
     public static void parseIcs(String url) {
         try (
@@ -91,6 +100,19 @@ public class App {
         var c = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
         c.set(year, month, day, hour, minute, second);
         return c.getTimeInMillis();
+    }
+
+    public static boolean isInConflict(Reservation resa) {
+        return allCreaneau
+                .stream()
+                    .filter(c->{
+                        if (!c.salle.equals(resa.salle)) return false;
+                        if (c.start < resa.start && resa.start < c.end) return true;
+                        if (c.start < resa.end && resa.end < c.end) return true;
+                        return false;
+                    })
+                    .findFirst()
+                    .isPresent();
     }
     
 }

@@ -1,4 +1,4 @@
-package ics.celcat.parser;
+package back.model;
 
 public class Creneau {
     public long start;
