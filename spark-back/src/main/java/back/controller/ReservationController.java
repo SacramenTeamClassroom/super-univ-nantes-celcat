@@ -17,13 +17,12 @@ public class ReservationController {
     public static ArrayList<Reservation> pendingResa    = new ArrayList<>();
 
     public static void init() {
-        post("/resvervation", (req, res) -> {
+        post("/reservation", (req, res) -> {
             var resa = App.gson.fromJson(req.body(), Reservation.class);
             var timestamp = System.currentTimeMillis();
             if (resa.end < timestamp) return Error.send(res, "Cannot reserve a in the past! ( the end date is before the current date )");
             if (CelcatJson.isInConflict(resa)) return Error.send(res, "Cannot reserve an already taken time slot");
-            var uuid = UUID.randomUUID();
-            resa.uuid = uuid.toString();
+            resa.uuid = UUID.randomUUID().toString();
             resa.timestamp = timestamp;
             pendingResa.add(resa);
             return Success.send(res, resa.uuid);
