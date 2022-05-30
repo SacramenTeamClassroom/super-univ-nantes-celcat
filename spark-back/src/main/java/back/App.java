@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import back.celcatjson.CelcatJson;
+import back.model.Password;
 
 public class App {
 
@@ -16,6 +17,7 @@ public class App {
         builder = new GsonBuilder();
         gson = builder.create();
         CelcatJson.GetAll();
+        Password.getFromFile();
         start();
 
     }
